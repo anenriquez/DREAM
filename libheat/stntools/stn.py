@@ -201,14 +201,16 @@ class Edge(object):
         name_split = self.distribution.split("_")
         if len(name_split) != 3 or name_split[0] != "N":
             raise ValueError("No mu for non-normal dist")
-        return float(name_split[1]) * 1000
+        # return float(name_split[1]) * 1000
+        return float(name_split[1])
 
     @property
     def sigma(self):
         name_split = self.distribution.split("_")
         if len(name_split) != 3 or name_split[0] != "N":
             raise ValueError("No sigma for non-normal dist")
-        return float(name_split[2]) * 1000
+        # return float(name_split[2]) * 1000
+        return float(name_split[2])
 
     @property
     def dist_ub(self):
@@ -291,8 +293,8 @@ class STN(object):
                 if self.get_vertex(j).is_executed():
                     to_print += " Ex"
             else:
-                to_print += "Edge {} => {}: [{}, {}]".format(
-                    edge.i, edge.j, -edge.Cji, edge.Cij)
+                to_print += "Edge {} => {}: [{}, {}], Sampled value: [{}]".format(
+                    edge.i, edge.j, -edge.Cji, edge.Cij, edge._sampled_time)
                 if edge.distribution is not None:
                     to_print += " ({})".format(edge.distribution)
             to_print += "\n"
