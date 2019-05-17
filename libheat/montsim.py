@@ -47,10 +47,14 @@ class Simulator(object):
         self._ara_successfactor = 1.0
         self.num_reschedules = 0
         self.num_sent_schedules = 0
+
+        pr.verbose("Original STN: {}".format(self.stn))
         # Resample the contingent edges.
         # Super important!
         pr.verbose("Resampling Stored STN")
         self.resample_stored_stn()
+
+        pr.verbose("Resampled STN: {}".format(self.stn))
 
         # Setup options
         first_run = True
@@ -73,31 +77,32 @@ class Simulator(object):
         current_alpha = 0.0
 
         # Loop until all timepoints assigned.
+        # Loop until all timepoints (vertices) have been executed
         while not self.all_assigned():
             options["first_run"] = first_run
             if first_run:
                 first_run = False
 
             # Calculate the guide STN.
-            pr.vverbose("Getting Guide...")
+            pr.verbose("Getting Guide...")
             functiontimer.start("get_guide")
             current_alpha, guide_stn = self.get_guide(execution_strat,
                                                       current_alpha,
                                                       guide_stn,
                                                       options=options)
-            # print("GUIDE")
-            # print(guide_stn)
+            print("GUIDE")
+            print(guide_stn)
             functiontimer.stop("get_guide")
-            pr.vverbose("Got guide")
+            pr.verbose("Got guide")
 
             # Select the next timepoint.
-            pr.vverbose("Selecting timepoint...")
+            pr.verbose("Selecting timepoint...")
             functiontimer.start("selection")
             selection = self.select_next_timepoint(guide_stn,
                                                    self._current_time)
             functiontimer.stop("selection")
-            pr.vverbose("Selected timepoint, node_id of {}"
-                        .format(selection[0]))
+            pr.verbose("Selected timepoint, node_id of {} executed time {}"
+                        .format(selection[0], selection[1]))
 
             next_vert_id = selection[0]
             next_time = selection[1]
@@ -116,13 +121,14 @@ class Simulator(object):
             functiontimer.start("propagation & check")
             stn_copy = self.stn.copy()
             consistent = self.propagate_constraints(stn_copy)
+            print("Updated STN: ", stn_copy)
             if not consistent:
                 pr.verbose("Assignments: " + str(self.get_assigned_times()))
                 pr.verbose("Failed to place point {}, at {}"
                            .format(next_vert_id, next_time))
                 return False
             self.stn = stn_copy
-            pr.vverbose("Done propagating our STN")
+            pr.verbose("Done propagating our STN")
             functiontimer.stop("propagation & check")
 
             # Clean up the STN
@@ -196,8 +202,19 @@ class Simulator(object):
                     pr.warning(msg)
                     earliest_time = new_time
                 else:
+                    edges = dispatch.edges
+                    edge = edges[(0, vert.nodeID)]
+                    print("We are on vertex: {} we are interested in edge {}".format(vert, edge))
+                    earliest_start_time = -edge.Cji
+                    # Earliest start time is in edge with node 0
+                    print("Est: ", earliest_start_time)
                     earliest_time = dispatch.get_assigned_time(cont_pred) \
                         + sample_time
+                        # Maybe the tasks is not supposed to start until an earliest start time, so wait (no need to hurry)
+
+                    if earliest_time < earliest_start_time:
+                        earliest_time = earliest_start_time
+
             # Update the earliest time  now.
             if earliest_so_far_time > earliest_time:
                 earliest_so_far = i
