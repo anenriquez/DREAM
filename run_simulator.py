@@ -61,7 +61,7 @@ def main():
     sim_options = {"ar_threshold": args.ar_threshold,
                    "alp_threshold": args.si_threshold,
                    "si_threshold": args.si_threshold}
-    
+
     # Check to see if we need to create the ordering pairs from the parsed
     # user input.
 
@@ -134,17 +134,17 @@ def across_paths(stn_paths, execution, threads, sim_count, sim_options,
                     _print_results(results_dict,
                                    j + len(ordering_pairs)*i + 1,
                                    len(stn_pairs)*len(ordering_pairs))
-                
+
                 if output is not None:
                     sim2csv.save_csv_row(results_dict, output)
-    
-        
+
+
         else:
             results_dict = _run_stage(pair, execution, sim_count, threads,
                                       random_seed, sim_options)
             if live_updates:
                 _print_results(results_dict, i + 1, len(stn_pairs))
-            
+
             if output is not None:
                 sim2csv.save_csv_row(results_dict, output)
 
@@ -153,7 +153,7 @@ def _run_stage(pair, execution, sim_count, threads, random_seed, sim_options):
     """Run a single stage of the multiple simulation set up."""
 
     path, stn = pair
-    
+
     start_time = time.time()
     response_dict = multiple_simulations(stn, execution, sim_count,
                                          threads=threads,
@@ -162,6 +162,8 @@ def _run_stage(pair, execution, sim_count, threads, random_seed, sim_options):
     runtime = time.time() - start_time
 
     results = response_dict["sample_results"]
+    print("Sample results: ", results)
+
     reschedules = response_dict["reschedules"]
     sent_schedules = response_dict["sent_schedules"]
 
@@ -190,6 +192,7 @@ def _run_stage(pair, execution, sim_count, threads, random_seed, sim_options):
     results_dict["timestamp"] = time.time()
     results_dict["stn_path"] = path
     results_dict["stn_name"] = stn.name
+    results_dict["stn"] = stn
     results_dict["ar_threshold"] = sim_options["ar_threshold"]
     results_dict["si_threshold"] = sim_options["si_threshold"]
     results_dict["synchronous_density"] = synchrony
@@ -211,6 +214,7 @@ def _print_results(results_dict, i, stn_count):
     print("-"*79)
     print("    Ran on: {}".format(results_dict["stn_path"]))
     print("    Name: {}".format(results_dict["stn_name"]))
+    print("    STN: {}".format(results_dict["stn"]))
     print("    Timestamp: {}".format(results_dict["timestamp"]))
     print("    Samples: {}".format(results_dict["samples"]))
     print("    Threads: {}".format(results_dict["threads"]))
