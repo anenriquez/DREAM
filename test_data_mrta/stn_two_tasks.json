@@ -3,26 +3,26 @@
     {
       "node_id":1,
       "owner_id":0,
-      "min_domain":1540719649,
-      "max_domain":1540719654
+      "min_domain":10,
+      "max_domain":20
     },
     {
       "node_id":2,
       "owner_id":0,
-      "min_domain":1540719652,
-      "max_domain":1540719659
+      "min_domain":10,
+      "max_domain":25
     },
     {
       "node_id":3,
       "owner_id":0,
-      "min_domain":1540719704,
-      "max_domain":1540719709
+      "min_domain":40,
+      "max_domain":50
     },
     {
       "node_id":4,
       "owner_id":0,
-      "min_domain":1540719707,
-      "max_domain":1540719714
+      "min_domain":40,
+      "max_domain":55
     }
   ],
   "constraints":[
@@ -45,13 +45,6 @@
         "type":"Empirical",
         "name":"N_4_1"
       }
-    },
-
-    {
-      "first_node":2,
-      "second_node":3,
-      "min_duration":6,
-      "max_duration":10000
     }
   ],
   "num_agents":1
