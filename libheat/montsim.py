@@ -51,10 +51,19 @@ class Simulator(object):
         pr.verbose("Original STN: {}".format(self.stn))
         # Resample the contingent edges.
         # Super important!
+
+        for i, j in self.stn.edges:
+            if (i, j) in self.stn.contingent_edges:
+                print("Contingent edge: ", self.stn.contingent_edges[(i, j)])
+
         pr.verbose("Resampling Stored STN")
         self.resample_stored_stn()
 
         pr.verbose("Resampled STN: {}".format(self.stn))
+
+        for i, j in self.stn.edges:
+            if (i, j) in self.stn.contingent_edges:
+                print("Contingent edge: ", self.stn.contingent_edges[(i, j)])
 
         # Setup options
         first_run = True
@@ -86,12 +95,14 @@ class Simulator(object):
             # Calculate the guide STN.
             pr.verbose("Getting Guide...")
             functiontimer.start("get_guide")
+
             current_alpha, guide_stn = self.get_guide(execution_strat,
                                                       current_alpha,
                                                       guide_stn,
                                                       options=options)
             print("GUIDE")
             print(guide_stn)
+            print("Alpha: ", current_alpha)
             functiontimer.stop("get_guide")
             pr.verbose("Got guide")
 
@@ -391,7 +402,7 @@ class Simulator(object):
             consistent.
         """
         self.num_reschedules += 1
-        result = srea.srea(self.stn)
+        result = srea.srea(self.stn, debug=True)
         if result is not None:
             self.num_sent_schedules += 1
             return result[0], result[1]

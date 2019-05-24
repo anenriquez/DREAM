@@ -46,23 +46,34 @@ def setUpLP(stn, decouple):
 
     prob = pulp.LpProblem('PSTN Robust Execution LP', pulp.LpMaximize)
 
+    print("Input STN: ", stn)
+
     # ##
     # Store Original STN edges and objective variables for easy access.
     # Not part of LP yet
     # ##
 
     for i in stn.verts:
+        print("SREA verts: ", i)
         bounds[(i, '+')] = pulp.LpVariable('t_%d_hi' % i,
                                            lowBound=-stn.get_edge_weight(i, 0),
                                            upBound=stn.get_edge_weight(0, i))
+        print("Lower bound + : ", -stn.get_edge_weight(i, 0))
+        print("Upper bound: + ", stn.get_edge_weight(0, i))
         bounds[(i, '-')] = pulp.LpVariable('t_%d_lo' % i,
                                            lowBound=-stn.get_edge_weight(i, 0),
                                            upBound=stn.get_edge_weight(0, i))
+        print("Lower bound - : ", -stn.get_edge_weight(i, 0))
+        print("Upper bound - : ", stn.get_edge_weight(0, i))
+
         condition = bounds[(i, '+')] >= bounds[(i, '-')]
         addConstraint(condition, prob)
 
     for i, j in stn.edges:
+        print("Edge ({}, {})".format(i, j))
         if (i, j) in stn.contingent_edges:
+            print("Contingent edge: ", stn.contingent_edges[(i, j)])
+            print("{}, {}".format(i, j))
             deltas[(i, j)] = pulp.LpVariable('delta_%d_%d' %
                                              (i, j), lowBound=0, upBound=None)
             deltas[(j, i)] = pulp.LpVariable('delta_%d_%d' %
@@ -72,6 +83,7 @@ def setUpLP(stn, decouple):
             # ignore edges from z. these edges are implicitly handled
             # with the bounds on the LP variables
             if i != 0 and not decouple:
+                print("Adding extra constraints")
                 addConstraint(bounds[(j, '+')] - bounds[(i, '-')]
                               <= stn.get_edge_weight(i, j), prob)
                 addConstraint(bounds[(i, '+')] - bounds[(j, '-')]
@@ -121,6 +133,17 @@ def srea(inputstn,
         # TODO: Change to faster algorithm?
         inputstn.floyd_warshall()
     bounds, deltas, probBase = setUpLP(inputstn, decouple)
+
+    print("Bounds:")
+    for bound in bounds:
+        print("{}:{}".format(bound, bounds[bound]))
+        print("")
+
+    print("Deltas:")
+    for delta in deltas:
+        print("{}:{}".format(delta, deltas[delta]))
+        print("")
+    print("probBase: ", probBase)
 
     # First run binary search on alpha
     while upper - lower > 1:
