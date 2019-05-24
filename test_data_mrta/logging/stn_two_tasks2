@@ -1,0 +1,338 @@
+angela@angela:~/ropod/thesis/DREAM (adaptation-tessi)$ python3 run_simulator.py -v -e drea -s 1 test_data_mrta/stn_two_tasks2.json
+[v] Verbosity set to: 1
+Random seed is: 1233015044
+Using single thread; threads = 1
+[v] Original STN: Vertex 1: [41.0, 47.0]
+Vertex 2: [41.0, 52.0]
+Vertex 3: [96.0, 102.0]
+Vertex 4: [96.0, 107.0]
+Edge 1 => 2: [4.0, inf], Sampled value: [0] (N_4_1)
+Edge 3 => 4: [4.0, inf], Sampled value: [0] (N_4_1)
+
+Contingent edge:  Edge 1 => 2 [4.0, inf]
+Contingent edge:  Edge 3 => 4 [4.0, inf]
+[v] Resampling Stored STN
+[v] Resampled STN: Vertex 1: [41.0, 47.0]
+Vertex 2: [41.0, 52.0]
+Vertex 3: [96.0, 102.0]
+Vertex 4: [96.0, 107.0]
+Edge 1 => 2: [4.0, inf], Sampled value: [5] (N_4_1)
+Edge 3 => 4: [4.0, inf], Sampled value: [4] (N_4_1)
+
+Contingent edge:  Edge 1 => 2 [4.0, inf]
+Contingent edge:  Edge 3 => 4 [4.0, inf]
+[v] Getting Guide...
+Input STN:  Vertex 1: [41.0, 47.0]
+Vertex 2: [45.0, 52.0]
+Vertex 3: [96.0, 102.0]
+Vertex 4: [100.0, 107.0]
+Edge 1 => 2: [4.0, 11.0], Sampled value: [5] (N_4_1)
+Edge 3 => 4: [4.0, 11.0], Sampled value: [4] (N_4_1)
+
+SREA verts:  0
+Lower bound + :  0
+Upper bound: +  0
+Lower bound - :  0
+Upper bound - :  0
+SREA verts:  1
+Lower bound + :  41.0
+Upper bound: +  47.0
+Lower bound - :  41.0
+Upper bound - :  47.0
+SREA verts:  2
+Lower bound + :  45.0
+Upper bound: +  52.0
+Lower bound - :  45.0
+Upper bound - :  52.0
+SREA verts:  3
+Lower bound + :  96.0
+Upper bound: +  102.0
+Lower bound - :  96.0
+Upper bound - :  102.0
+SREA verts:  4
+Lower bound + :  100.0
+Upper bound: +  107.0
+Lower bound - :  100.0
+Upper bound - :  107.0
+Edge (0, 1)
+Edge (1, 2)
+Contingent edge:  Edge 1 => 2 [4.0, 11.0]
+1, 2
+Edge (0, 4)
+Edge (0, 3)
+Edge (3, 4)
+Contingent edge:  Edge 3 => 4 [4.0, 11.0]
+3, 4
+Edge (0, 2)
+Bounds:
+(4, '+'):t_4_hi
+
+(1, '+'):t_1_hi
+
+(0, '+'):t_0_hi
+
+(0, '-'):t_0_lo
+
+(3, '-'):t_3_lo
+
+(2, '-'):t_2_lo
+
+(2, '+'):t_2_hi
+
+(3, '+'):t_3_hi
+
+(4, '-'):t_4_lo
+
+(1, '-'):t_1_lo
+
+Deltas:
+(1, 2):delta_1_2
+
+(3, 4):delta_3_4
+
+(4, 3):delta_4_3
+
+(2, 1):delta_2_1
+
+probBase:  PSTN Robust Execution LP:
+MAXIMIZE
+None
+SUBJECT TO
+_C1: t_0_hi - t_0_lo >= 0
+
+_C2: t_1_hi - t_1_lo >= 0
+
+_C3: t_2_hi - t_2_lo >= 0
+
+_C4: t_3_hi - t_3_lo >= 0
+
+_C5: t_4_hi - t_4_lo >= 0
+
+VARIABLES
+t_0_hi = 0 Continuous
+t_0_lo = 0 Continuous
+41 <= t_1_hi <= 47 Continuous
+41 <= t_1_lo <= 47 Continuous
+45 <= t_2_hi <= 52 Continuous
+45 <= t_2_lo <= 52 Continuous
+96 <= t_3_hi <= 102 Continuous
+96 <= t_3_lo <= 102 Continuous
+100 <= t_4_hi <= 107 Continuous
+100 <= t_4_lo <= 107 Continuous
+
+trying alpha = 0.499
+trying alpha = 0.249
+trying alpha = 0.124
+trying alpha = 0.061
+trying alpha = 0.03
+trying alpha = 0.014
+trying alpha = 0.006
+trying alpha = 0.002
+trying alpha = 0.0
+modifying STN with lowest good alpha, 0.0
+[v] DREA Rescheduled, new alpha: 0.0
+GUIDE
+Vertex 1: [43, 46]
+Vertex 2: [45.0, 52.0]
+Vertex 3: [98, 101]
+Vertex 4: [100.0, 107.0]
+Edge 1 => 2: [4.0, 11.0], Sampled value: [5] (N_4_1)
+Edge 3 => 4: [4.0, 11.0], Sampled value: [4] (N_4_1)
+
+Alpha:  0.0
+[v] Got guide
+[v] Selecting timepoint...
+[v] Selected timepoint, node_id of 0 executed time 0.0
+Updated STN:  Vertex 1: [41.0, 47.0]
+Vertex 2: [45.0, 52.0]
+Vertex 3: [96.0, 102.0]
+Vertex 4: [100.0, 107.0]
+Edge 1 => 2: [4.0, 11.0], Sampled value: [5] (N_4_1)
+Edge 3 => 4: [4.0, 11.0], Sampled value: [4] (N_4_1)
+
+[v] Done propagating our STN
+[v] Getting Guide...
+GUIDE
+Vertex 1: [43, 46]
+Vertex 2: [45.0, 52.0]
+Vertex 3: [98, 101]
+Vertex 4: [100.0, 107.0]
+Edge 1 => 2: [4.0, 11.0], Sampled value: [5] (N_4_1)
+Edge 3 => 4: [4.0, 11.0], Sampled value: [4] (N_4_1)
+
+Alpha:  0.0
+[v] Got guide
+[v] Selecting timepoint...
+[v] Selected timepoint, node_id of 1 executed time 43.0
+Updated STN:  Vertex 1: [43.0, 43.0] Ex
+Vertex 2: [47.0, 52.0]
+Vertex 3: [96.0, 102.0]
+Vertex 4: [100.0, 107.0]
+Edge 1 => 2: [4.0, 9.0], Sampled value: [5] (N_4_1)
+Edge 3 => 4: [4.0, 11.0], Sampled value: [4] (N_4_1)
+
+[v] Done propagating our STN
+[v] Getting Guide...
+GUIDE
+Vertex 1: [43.0, 43.0] Ex
+Vertex 2: [45.0, 52.0]
+Vertex 3: [98, 101]
+Vertex 4: [100.0, 107.0]
+Edge 1 => 2: [4.0, 11.0], Sampled value: [5] (N_4_1)
+Edge 3 => 4: [4.0, 11.0], Sampled value: [4] (N_4_1)
+
+Alpha:  0.0
+[v] Got guide
+[v] Selecting timepoint...
+We are on vertex: Vertex 2 owned by agent 0 we are interested in edge Edge 0 => 2 [45.0, 52.0]
+Est:  45.0
+[v] Selected timepoint, node_id of 2 executed time 48.0
+Updated STN:  Vertex 1: [43.0, 43.0] Ex
+Vertex 2: [48.0, 48.0] Ex
+Vertex 3: [96.0, 102.0]
+Vertex 4: [100.0, 107.0]
+Edge 1 => 2: [5.0, 5.0], Sampled value: [5] (N_4_1)
+Edge 3 => 4: [4.0, 11.0], Sampled value: [4] (N_4_1)
+
+[v] Done propagating our STN
+[v] Getting Guide...
+Input STN:  Vertex 3: [96.0, 102.0]
+Vertex 4: [100.0, 107.0]
+Edge 3 => 4: [4.0, 11.0], Sampled value: [4] (N_4_1)
+
+SREA verts:  0
+Lower bound + :  0
+Upper bound: +  0
+Lower bound - :  0
+Upper bound - :  0
+SREA verts:  3
+Lower bound + :  96.0
+Upper bound: +  102.0
+Lower bound - :  96.0
+Upper bound - :  102.0
+SREA verts:  4
+Lower bound + :  100.0
+Upper bound: +  107.0
+Lower bound - :  100.0
+Upper bound - :  107.0
+Edge (0, 3)
+Edge (3, 4)
+Contingent edge:  Edge 3 => 4 [4.0, 11.0]
+3, 4
+Edge (0, 4)
+Bounds:
+(3, '-'):t_3_lo
+
+(0, '+'):t_0_hi
+
+(0, '-'):t_0_lo
+
+(4, '+'):t_4_hi
+
+(4, '-'):t_4_lo
+
+(3, '+'):t_3_hi
+
+Deltas:
+(3, 4):delta_3_4
+
+(4, 3):delta_4_3
+
+probBase:  PSTN Robust Execution LP:
+MAXIMIZE
+None
+SUBJECT TO
+_C1: t_0_hi - t_0_lo >= 0
+
+_C2: t_3_hi - t_3_lo >= 0
+
+_C3: t_4_hi - t_4_lo >= 0
+
+VARIABLES
+t_0_hi = 0 Continuous
+t_0_lo = 0 Continuous
+96 <= t_3_hi <= 102 Continuous
+96 <= t_3_lo <= 102 Continuous
+100 <= t_4_hi <= 107 Continuous
+100 <= t_4_lo <= 107 Continuous
+
+trying alpha = 0.499
+trying alpha = 0.249
+trying alpha = 0.124
+trying alpha = 0.061
+trying alpha = 0.03
+trying alpha = 0.014
+trying alpha = 0.006
+trying alpha = 0.002
+trying alpha = 0.0
+modifying STN with lowest good alpha, 0.0
+[v] DREA Rescheduled, new alpha: 0.0
+GUIDE
+Vertex 3: [98, 101]
+Vertex 4: [100.0, 107.0]
+Edge 3 => 4: [4.0, 11.0], Sampled value: [4] (N_4_1)
+
+Alpha:  0.0
+[v] Got guide
+[v] Selecting timepoint...
+[v] Selected timepoint, node_id of 3 executed time 98.0
+Updated STN:  Vertex 3: [98.0, 98.0] Ex
+Vertex 4: [102.0, 107.0]
+Edge 3 => 4: [4.0, 9.0], Sampled value: [4] (N_4_1)
+
+[v] Done propagating our STN
+[v] Getting Guide...
+GUIDE
+Vertex 3: [98.0, 98.0] Ex
+Vertex 4: [100.0, 107.0]
+Edge 3 => 4: [4.0, 11.0], Sampled value: [4] (N_4_1)
+
+Alpha:  0.0
+[v] Got guide
+[v] Selecting timepoint...
+We are on vertex: Vertex 4 owned by agent 0 we are interested in edge Edge 0 => 4 [100.0, 107.0]
+Est:  100.0
+[v] Selected timepoint, node_id of 4 executed time 102.0
+Updated STN:  Vertex 3: [98.0, 98.0] Ex
+Vertex 4: [102.0, 102.0] Ex
+Edge 3 => 4: [4.0, 4.0], Sampled value: [4] (N_4_1)
+
+[v] Done propagating our STN
+[v] Assignments: {0: 0.0, 1: 43.0, 2: 48.0, 3: 98.0, 4: 102.0}
+[v] Successful!
+[v] Task: 0
+[v] Assigned Times: {0: 0.0, 1: 43.0, 2: 48.0, 3: 98.0, 4: 102.0}
+[v] Successful?: True
+Sample results:  [True]
+-------------------------------------------------------------------------------
+    Ran on: test_data_mrta/stn_two_tasks2.json
+    Name: stn_two_tasks2.json
+    STN: Vertex 1: [41.0, 47.0]
+Vertex 2: [41.0, 52.0]
+Vertex 3: [96.0, 102.0]
+Vertex 4: [96.0, 107.0]
+Edge 1 => 2: [4.0, inf], Sampled value: [0] (N_4_1)
+Edge 3 => 4: [4.0, inf], Sampled value: [0] (N_4_1)
+
+    Timestamp: 1558691788.3355258
+    Samples: 1
+    Threads: 1
+    Execution: drea
+    AR Threshold: 0.0
+    SI Threshold: 0.0
+    Robustness: 1.0
+    Seed: 1233015044
+    Runtime: 0.1839139461517334
+    Vert Count: 5
+    Agents: 1
+    Max verts on Agent: 4
+    Mean verts on Agent: 4.0
+    Cont Edge Dens: 0.3333333333333333
+    Cont SD Avg: 1.0
+    Sync Density: 0.0
+    Resc Freq: 2.0
+    Send Freq: 2.0
+    Total Progress: 1/1
+-------------------------------------------------------------------------------
+Time spent per function:
+{'selection': 0.00035881996154785156, 'invcdf_norm': 0.0029113292694091797, 'get_guide': 0.18047308921813965, 'propogate_constraints': 0.0014297962188720703, 'propagation & check': 0.0016760826110839844}
